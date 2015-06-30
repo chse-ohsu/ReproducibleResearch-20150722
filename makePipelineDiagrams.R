@@ -37,12 +37,11 @@ scriptEdges <- create_edges(from=c("A", "B"),
                             to  =c("b", "c"))
 nodes <- combine_nodes(productNodes, scriptNodes)
 edges <- combine_edges(productEdges, scriptEdges)
-G <- create_graph(nodes_df=nodes, 
-                  edges_df=edges,
-                  node_attrs="fontname=Helvetica", 
-                  graph_attrs=c("layout=dot", "rankdir=LR"))
-cat(render_graph(G, output="SVG"),
-    file="pipelineStandard.svg")
+G1 <- create_graph(nodes_df=nodes, 
+                   edges_df=edges,
+                   graph_name="Standard pipeline",
+                   node_attrs="fontname=Helvetica", 
+                   graph_attrs=c("layout=dot", "rankdir=LR"))
 
 # Create almost reproducible research pipeline
 productLabels <-c("Observed\ndata",
@@ -74,12 +73,11 @@ scriptEdges <- create_edges(from=c("A", "B", "C", "C", "C"),
                             to  =c("b", "c", "d", "e", "f"))
 nodes <- combine_nodes(productNodes, scriptNodes)
 edges <- combine_edges(productEdges, scriptEdges)
-G <- create_graph(nodes_df=nodes, 
-                  edges_df=edges,
-                  node_attrs="fontname=Helvetica", 
-                  graph_attrs=c("layout=dot", "rankdir=LR"))
-cat(render_graph(G, output="SVG"),
-    file="pipelineAlmostReproducible.svg")
+G2 <- create_graph(nodes_df=nodes, 
+                   edges_df=edges,
+                   graph_name="Almost reproducible pipeline",
+                   node_attrs="fontname=Helvetica", 
+                   graph_attrs=c("layout=dot", "rankdir=LR"))
 
 # Create fully reproducible research pipeline
 productLabels <-c("Observed\ndata",
@@ -111,16 +109,28 @@ scriptEdges <- create_edges(from=c("A", "B", "C", "C", "C", "D", "d", "e", "f"),
                             to  =c("b", "c", "d", "e", "f", "g", "g", "g", "g"))
 nodes <- combine_nodes(productNodes, scriptNodes)
 edges <- combine_edges(productEdges, scriptEdges)
-G <- create_graph(nodes_df=nodes, 
-                  edges_df=edges,
-                  node_attrs="fontname=Helvetica", 
-                  graph_attrs=c("layout=dot", "rankdir=LR"))
-G <- add_edges(G,
-               from=c("D", "A", "B"),
-               to  =c("A", "B", "C"))
-# render_graph(G)
-cat(render_graph(G, output="SVG"),
-    file="pipelineFullyReproducible.svg")
+G3 <- create_graph(nodes_df=nodes, 
+                   edges_df=edges,
+                   graph_name="Fully reproducible pipeline",
+                   node_attrs="fontname=Helvetica", 
+                   graph_attrs=c("layout=dot", "rankdir=LR"))
+G3 <- add_edges(G3,
+                from=c("D", "A", "B"),
+                to  =c("A", "B", "C"))
+
+# Render diagrams
+G <- create_series(series_type="sequential")
+G <- add_to_series(G1, G)
+G <- add_to_series(G2, G)
+G <- add_to_series(G3, G)
+graph_count(G)
+series_info(G)
+# render_graph_from_series(G, 1)
+# render_graph_from_series(G, 2)
+# render_graph_from_series(G, 3)
+cat(render_graph_from_series(G, 1, output="SVG"), file="pipelineStandard.svg")
+cat(render_graph_from_series(G, 2, output="SVG"), file="pipelineAlmostReproducible.svg")
+cat(render_graph_from_series(G, 3, output="SVG"), file="pipelineFullyReproducible.svg")
 
 # Turn off dev mode
 dev_mode(on=FALSE)
