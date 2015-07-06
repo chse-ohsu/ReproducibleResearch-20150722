@@ -1,12 +1,5 @@
-# Install devtools if needed
-if (!require(devtools)) {install.packages("devtools", dependencies=TRUE, repos=repos)}
-find_rtools()
-require(devtools)
-# Turn on dev mode
-dev_mode(on=TRUE)
-# Install the dev version of DiagrammeR
-devtools::install_github('rich-iannone/DiagrammeR')
-require(DiagrammeR, quietly=TRUE)
+if (!require(DiagrammeR)) {install.packages("DiagrammeR", dependencies=TRUE, repos="http://cran.r-project.org/")}
+library(DiagrammeR, quietly=TRUE)
 
 # Create standard research pipeline
 productLabels <-c("Observed\ndata",
@@ -105,8 +98,8 @@ scriptNodes <- create_nodes(nodes=LETTERS[1:length(scriptLabels)],
                             shape="ellipse")
 productEdges <- create_edges(from=c("a", "b", "c", "c", "c"),
                              to  =c("b", "c", "d", "e", "f"))
-scriptEdges <- create_edges(from=c("A", "B", "C", "C", "C", "D", "d", "e", "f"),
-                            to  =c("b", "c", "d", "e", "f", "g", "g", "g", "g"))
+scriptEdges <- create_edges(from=c("A", "B", "C", "C", "C", "D", "d", "e", "f", "D", "A", "B"),
+                            to  =c("b", "c", "d", "e", "f", "g", "g", "g", "g", "A", "B", "C"))
 nodes <- combine_nodes(productNodes, scriptNodes)
 edges <- combine_edges(productEdges, scriptEdges)
 G3 <- create_graph(nodes_df=nodes, 
@@ -114,9 +107,6 @@ G3 <- create_graph(nodes_df=nodes,
                    graph_name="Fully reproducible pipeline",
                    node_attrs="fontname=Helvetica", 
                    graph_attrs=c("layout=dot", "rankdir=LR"))
-G3 <- add_edges(G3,
-                from=c("D", "A", "B"),
-                to  =c("A", "B", "C"))
 
 # Render diagrams
 G <- create_series(series_type="sequential")
@@ -131,6 +121,3 @@ series_info(G)
 cat(render_graph_from_series(G, 1, output="SVG"), file="pipelineStandard.svg")
 cat(render_graph_from_series(G, 2, output="SVG"), file="pipelineAlmostReproducible.svg")
 cat(render_graph_from_series(G, 3, output="SVG"), file="pipelineFullyReproducible.svg")
-
-# Turn off dev mode
-dev_mode(on=FALSE)

@@ -79,7 +79,7 @@ Although much of the focus on reproducibility is at the basic and preclinical re
 
 ## How to do reproducible research?
 
-```{r, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+```{r, eval=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 source("makePipelineDiagrams.R")
 ```
 
