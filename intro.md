@@ -31,7 +31,7 @@ It's where we're all headed...
 
 * Journal mandates
     * [Transparency and Openness Promotion (TOP) Guidelines](http://centerforopenscience.org/top/)
-    * As of 2015-07-07, 115 [journal signatories](http://centerforopenscience.org/top/#journals)
+    * As of 2015-07-08, 115 [journal signatories](http://centerforopenscience.org/top/#journals)
 * Funding mandates (NIH)
     * [Principles and Guidelines for Reporting Preclinical Research (*NIH*)](http://www.nih.gov/science/reproducibility/principles-guidelines.htm)
     * [Policy: NIH plans to enhance reproducibility (*Nature*)](http://www.nature.com/news/policy-nih-plans-to-enhance-reproducibility-1.14586)
