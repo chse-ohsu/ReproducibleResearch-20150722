@@ -1,0 +1,205 @@
+
+```{r, echo=FALSE}
+diet <- 1
+# Identify R plot color associated with diet of interest
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
+color <- gg_color_hue(4)[diet]
+```
+
+## Focus: Diet `r diet`
+
+### Individual growth curves
+
+Plot individual chick growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
+  geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Fitted growth curves
+
+Plot fitted growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE, message=FALSE}
+linesize <- rep(0.5,4)
+linesize[diet] <- 1
+ggplot() +
+  geom_point(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.3, size=1.5) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.2) +
+  geom_point(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), size=1.5) +
+  geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
+  guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
+  ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Final weight density
+
+Plot densities by diet for chicks' final weights (day 21), highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
+    geom_density() +
+    geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
+  ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+
+```{r, echo=FALSE}
+diet <- 2
+# Identify R plot color associated with diet of interest
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
+color <- gg_color_hue(4)[diet]
+```
+
+## Focus: Diet `r diet`
+
+### Individual growth curves
+
+Plot individual chick growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
+  geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Fitted growth curves
+
+Plot fitted growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE, message=FALSE}
+linesize <- rep(0.5,4)
+linesize[diet] <- 1
+ggplot() +
+  geom_point(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.3, size=1.5) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.2) +
+  geom_point(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), size=1.5) +
+  geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
+  guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
+  ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Final weight density
+
+Plot densities by diet for chicks' final weights (day 21), highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
+    geom_density() +
+    geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
+  ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+
+```{r, echo=FALSE}
+diet <- 3
+# Identify R plot color associated with diet of interest
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
+color <- gg_color_hue(4)[diet]
+```
+
+## Focus: Diet `r diet`
+
+### Individual growth curves
+
+Plot individual chick growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
+  geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Fitted growth curves
+
+Plot fitted growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE, message=FALSE}
+linesize <- rep(0.5,4)
+linesize[diet] <- 1
+ggplot() +
+  geom_point(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.3, size=1.5) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.2) +
+  geom_point(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), size=1.5) +
+  geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
+  guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
+  ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Final weight density
+
+Plot densities by diet for chicks' final weights (day 21), highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
+    geom_density() +
+    geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
+  ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+
+```{r, echo=FALSE}
+diet <- 4
+# Identify R plot color associated with diet of interest
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
+color <- gg_color_hue(4)[diet]
+```
+
+## Focus: Diet `r diet`
+
+### Individual growth curves
+
+Plot individual chick growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
+  geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Fitted growth curves
+
+Plot fitted growth curves, highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE, message=FALSE}
+linesize <- rep(0.5,4)
+linesize[diet] <- 1
+ggplot() +
+  geom_point(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.3, size=1.5) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.2) +
+  geom_point(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), size=1.5) +
+  geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
+  guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
+  ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+### Final weight density
+
+Plot densities by diet for chicks' final weights (day 21), highlighting the results for chicks consuming Diet `r diet`.
+
+```{r, echo=FALSE}
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
+    geom_density() +
+    geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
+  ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+```
+
+

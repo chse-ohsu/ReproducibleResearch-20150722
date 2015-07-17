@@ -1,0 +1,179 @@
+---
+title: "Reproducible Research Demo"
+subtitle: "or: What Does This Code Do Again?"
+author: 
+
+  - name: Ben Chan
+    affiliation: CHSE
+    email: chanb@ohsu.edu
+    
+  - name: Stephanie Renfro
+    affiliation: CHSE
+    email: renfrst@ohsu.edu
+
+  - name: Thomas Meath
+    affiliation: CHSE
+    email: meath@ohsu.edu
+date: "`r format(Sys.time(), '%A, %d %B, %Y')`"
+output: 
+  html_document:
+    template: 'H:/CodingProjects/CHSE_functions/chse/inst/rmarkdown/templates/CHSE_1/resources/default_chse.html'
+    toc: true
+    toc_depth: 3
+    css: 'H:/CodingProjects/CHSE_functions/chse/inst/rmarkdown/templates/CHSE_1/resources/markdown.css'
+  pdf_document:
+    toc: TRUE
+
+references:
+- id: llama
+  title: A systematic review of llama herding habits
+  author:
+  - family: McConnell
+    given: K. John
+  container-title: American Journal of Camelids
+  volume: 21
+  issue: 2
+  publisher: National Livestock Publishing Group
+  page: 124-198
+  type: article-journal
+  issued:
+    year: 2014
+    month: 10
+---
+
+## Purpose
+
+This work was inspired by the following email from Farmer Ben.
+
+> From: Ben Chan  
+> Sent: Thursday, June 11, 2015 4:04 PM  
+> To: Stephanie Renfro  
+> Subject: What to feed chicks  
+> 
+> Hello,  
+> 
+> I'm receiving 20 baby chicks next month. Can you help me decide what to feed them? I'm choosing between the following four diets:  
+> 
+> 1.  Grower diet  
+> 2.  Layer diet
+> 3.	Breeder diet
+> 4.	High cluckage diet  
+> 
+> Thanks,
+> Ben
+> 
+> -----------------------------------------------------------------
+> Ben Chan, Farmer and Research Associate  
+> OHSU Center for Health Systems Effectiveness  
+> Office: 3030 SW Moody | Mail Code: MDYCHSE  
+> www.ohsu.edu/chse  
+
+
+
+## Preliminaries
+
+Start clock to calculate total runtime.
+
+```{r}
+start_program <- proc.time()
+```
+
+Load needed packages:
+
+  * *data.table* - for faster processing  
+  * *knitr* - for better tables ("kable" function)
+  * *ggplot2* - for pretty plots  
+  * *knitr* - for better table display    
+  
+```{r, warning=FALSE}
+packages <- c("data.table", "ggplot2", "knitr")
+sapply(packages, require, character.only=TRUE, quietly=TRUE)
+```
+
+
+## Prepare Data
+
+This demo uses [data from an experiment on the effect of diet on early growth of chicks](http://www.inside-r.org/r-doc/datasets/ChickWeight), `ChickWeight`, which comes pre-loaded in any R session. Unfortunately, R does not come pre-loaded with a llama dataset[@llama].
+
+Let's take a look at the first few rows:
+
+```{r}
+head(ChickWeight)
+```
+
+Let's also print a summary of the data.
+
+*Note, by specifying the option "echo = FALSE", the resulting output will display, but not the code that generated it.*
+
+```{r, echo=FALSE}
+summary(ChickWeight)
+```
+
+Convert to data.table for faster processing.
+
+```{r}
+ChickWeight <- data.table(ChickWeight)
+```
+
+Just for fun, let's create a table showing mean weight at times 0, 10, and 21 days, for each of the four diet types.
+
+```{r, results='asis'}
+mean_ChickWeight <- ChickWeight[Time %in% c(0,10,21),
+                                list(mean_weight = round(mean(weight), digits=1)),
+                                by = list(Diet,Time)]
+
+kable(mean_ChickWeight)
+```
+
+## Growth for Individual Chicks
+
+**The following plot illustrates the growth curve for individual chicks from 0 to 21 days.**
+
+Colors represent the four diets. From this plot, it is difficult to distinguish between the performance of the four diets. 
+
+In subsequent plots, we focus our attention on a single diet.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick)) +
+  ggtitle("Growth Curve for Individual Chicks")
+```
+
+```{r,echo=FALSE,warning=FALSE}
+diet_list <- 1:4
+brew::brew('ReproducibleResearchDemo_loop.brew','ReproducibleResearchDemo_loop.Rmd')
+```
+
+```{r, child="ReproducibleResearchDemo_loop.Rmd", eval=TRUE}
+```
+
+## Wrap Up
+
+Calculate total runtime.
+
+```{r}
+time_program <- proc.time()-start_program
+print(paste("Total runtime:", format(time_program[3]/60,digits=3), "minutes"))
+```
+
+Clear memory.
+
+```{r}
+rm(list=ls())
+invisible(gc())
+```
+
+---------------------------------------------------------------
+
+#Session Information#  
+
+```{r,echo=FALSE,comment=NA,results='hold'}
+#THIS CODE PRINTS YOUR SESSION INFO AT THE BOTTOM OF THE PAGE#
+#PLEASE LEAVE THIS CODE IN#
+cat("SESSION INFO\n")
+cat("----------------------------------------------------\n")
+print(sessionInfo(),locale=F)
+```
+  
+#Works Cited#  
+<br>  
