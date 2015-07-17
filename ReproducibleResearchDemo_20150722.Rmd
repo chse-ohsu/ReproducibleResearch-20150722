@@ -60,6 +60,19 @@ packages <- c("data.table", "ggplot2", "knitr")
 sapply(packages, require, character.only=TRUE, quietly=TRUE)
 ```
 
+Define the CHSE color palette function.
+
+```{r}
+colorPalette <- function () {
+  c(rgb(  1,  67, 134, maxColorValue=255),
+    rgb(119, 120, 123, maxColorValue=255),
+    rgb(139, 184, 234, maxColorValue=255),
+    rgb(188, 190, 192, maxColorValue=255),
+    rgb( 94, 122, 162, maxColorValue=255),
+    rgb(223, 122,  28, maxColorValue=255))
+}
+```
+
 
 ## Prepare Data
 
@@ -95,6 +108,12 @@ mean_ChickWeight <- ChickWeight[Time %in% c(0,10,21),
 kable(mean_ChickWeight)
 ```
 
+Create a character variable for `diet`.
+Use this variable for plotting small multiples.
+
+```{r}
+ChickWeight[, dietChr := sprintf("Diet %d", Diet)]
+```
 ## Growth for Individual Chicks
 
 **The following plot illustrates the growth curve for individual chicks from 0 to 21 days.**
@@ -106,6 +125,7 @@ In subsequent plots, we focus our attention on a single diet.
 ```{r, echo=FALSE}
 ggplot() +
   geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick)) +
+  scale_color_manual(values=colorPalette()) +
   ggtitle("Growth Curve for Individual Chicks")
 ```
 
@@ -133,6 +153,7 @@ ggplot() +
   geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
   geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
   ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  scale_color_manual(values=colorPalette()) +
 ```
 
 ### Fitted growth curves
@@ -149,6 +170,7 @@ ggplot() +
   geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
   guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
   ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  scale_color_manual(values=colorPalette()) +
 ```
 
 ### Final weight density
@@ -160,6 +182,8 @@ ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
     geom_density() +
     geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
   ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  scale_color_manual(values=colorPalette()) +
+  scale_fill_manual(values=colorPalette()) +
 ```
 
 
