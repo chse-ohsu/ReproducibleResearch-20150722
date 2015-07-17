@@ -114,76 +114,65 @@ Use this variable for plotting small multiples.
 ```{r}
 ChickWeight[, dietChr := sprintf("Diet %d", Diet)]
 ```
+
+
 ## Growth for Individual Chicks
 
-**The following plot illustrates the growth curve for individual chicks from 0 to 21 days.**
+The following plot illustrates the growth curve for individual chicks from 0 to 21 days.
 
-Colors represent the four diets. From this plot, it is difficult to distinguish between the performance of the four diets. 
+Colors represent the four diets. 
 
-In subsequent plots, we focus our attention on a single diet.
+**From this plot, it is difficult to distinguish between the performance of the four diets.**
 
 ```{r, echo=FALSE}
 ggplot() +
-  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick)) +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
   scale_color_manual(values=colorPalette()) +
   ggtitle("Growth Curve for Individual Chicks")
+
 ```
-
-```{r, echo=FALSE}
-# Identify the diet of interest
-diet <- 1
-
-# Identify R plot color associated with diet of interest
-gg_color_hue <- function(n) {
-  hues = seq(15, 375, length=n+1)
-  hcl(h=hues, l=65, c=100)[1:n]
-}
-color <- gg_color_hue(4)[diet]
-```
-
-
-## Focus: Diet `r diet`
 
 ### Individual growth curves
 
-Plot individual chick growth curves, highlighting the results for chicks consuming Diet `r diet`.
+Plot individual chick growth curves using small multiples.
 
 ```{r, echo=FALSE}
 ggplot() +
-  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=Diet, group=Chick), alpha=.3) +
-  geom_line(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, color=Diet, group=Chick), size=0.7) +
-  ggtitle(bquote(atop("Growth Curve for Individual Chicks",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
+  facet_wrap(~ dietChr, nrow=1) + 
   scale_color_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks")))
 ```
 
 ### Fitted growth curves
 
-Plot fitted growth curves, highlighting the results for chicks consuming Diet `r diet`.
+Plot fitted growth curves using small multiples.
+Data points are jittered around time value.
 
 ```{r, echo=FALSE, message=FALSE}
-linesize <- rep(0.5,4)
-linesize[diet] <- 1
 ggplot() +
-  geom_point(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.3, size=1.5) +
-  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=Diet), alpha=.2) +
-  geom_point(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), size=1.5) +
-  geom_smooth(data=ChickWeight[Diet==diet], aes(x=Time, y=weight, colour=Diet), alpha=.2, size=.8) +
-  guides(colour=guide_legend(override.aes=list(size=linesize, shape=c(NA,NA,NA,NA)))) +
-  ggtitle(bquote(atop("Fitted Growth Curves",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  geom_jitter(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
+  facet_wrap(~ dietChr, nrow=1) + 
   scale_color_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Fitted Growth Curves")))
 ```
+
 
 ### Final weight density
 
-Plot densities by diet for chicks' final weights (day 21), highlighting the results for chicks consuming Diet `r diet`.
+Plot densities by diet for chicks' final weights (day 21) using small multiples.
 
 ```{r, echo=FALSE}
-ggplot(ChickWeight[Time==21], aes(x=weight, colour=Diet)) +
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=dietChr, fill=dietChr)) +
     geom_density() +
-    geom_density(data=ChickWeight[Time==21 & Diet==diet], aes(x=weight), fill=color, alpha=.2, show_guide=FALSE) +
-  ggtitle(bquote(atop("Density: Final Weight",atop(italic(.(paste("Highlighted: Diet",diet)))))))
+  facet_wrap(~ dietChr, nrow=4) + 
   scale_color_manual(values=colorPalette()) +
   scale_fill_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Density: Final Weight")))
 ```
 
 
