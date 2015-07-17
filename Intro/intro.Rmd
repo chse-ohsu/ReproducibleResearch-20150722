@@ -18,6 +18,7 @@ output:
 1. Introduction (Ben)
 2. Example and workflow (Stephanie)
 3. Getting fancy (Thomas)
+4. Outro (Ben)
 
 ![flyer](Reproducible Research FLYER scaled.png)
 
@@ -111,10 +112,19 @@ Almost reproducible research pipeline
 ## How to do reproducible research?
 
 Fully reproducible research pipeline
+## Outro
 
 ![pipelineFullyReproducible.svg](pipelineFullyReproducible.svg)
+[Real example](MASTER.html) of a data processing pipeline.
 
 
 ## How to do reproducible research?
+## Outro
+
+Resources to get you started
+
+1. Johns Hopkins [Coursera course](https://www.coursera.org/course/repdata)
+2. [R Markdown](http://rmarkdown.rstudio.com/) authoring format
+2. [CHSE](http://www.ohsu.edu/xd/research/centers-institutes/center-for-health-systems-effectiveness/)
 
 Now, some examples...
