@@ -143,5 +143,7 @@ Resources to get you started
 
 1. Johns Hopkins [Coursera course](https://www.coursera.org/course/repdata)
 2. [R Markdown](http://rmarkdown.rstudio.com/) authoring format
+3. [Dynamic Documents with R and knitr](https://www.crcpress.com/Dynamic-Documents-with-R-and-knitr-Second-Edition/Xie/9781498716963)
+3. [Reproducible Research with R and R Studio](http://christophergandrud.github.io/RepResR-RStudio/)
+3. [Implementing Reproducible Research](https://osf.io/s9tya/wiki/home/)
 2. [CHSE](http://www.ohsu.edu/xd/research/centers-institutes/center-for-health-systems-effectiveness/)
-
