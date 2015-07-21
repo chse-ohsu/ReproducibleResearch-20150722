@@ -10,7 +10,7 @@ July 22, 2015
 ## Outline {.columns-2}
 
 1. Introduction (Ben)
-2. Example walkthrough (Stephanie)
+2. Walkthrough a toy example (Stephanie)
 3. Getting fancy (Thomas)
 4. Outro (Ben)
 
@@ -42,7 +42,6 @@ One of the most effective ways to promote high-quality science is to create free
 
 * from **open** ~~lab notebooks~~ **code libraries**, 
 * to **dynamic document generation**,
-* to software that tracks every version of a data set (topic for another day)
 
 [![Buck citation.png](Buck citation.png)](http://www.sciencemag.org/content/348/6242/1403.full)
 
@@ -51,16 +50,13 @@ One of the most effective ways to promote high-quality science is to create free
 
 It's where we're all headed...
 
-* Funding mandates (NIH)
+* Funding mandates
     * [Principles and Guidelines for Reporting Preclinical Research (*NIH*)](http://www.nih.gov/science/reproducibility/principles-guidelines.htm)
     * [Policy: NIH plans to enhance reproducibility (*Nature*)](http://www.nature.com/news/policy-nih-plans-to-enhance-reproducibility-1.14586)
 * Journal mandates
     * [Transparency and Openness Promotion (TOP) Guidelines](http://centerforopenscience.org/top/)
-    * As of 2015-07-08, 115 journal signatories
-    * As of 2015-07-17, 171 [journal signatories](http://centerforopenscience.org/top/#journals)
-* Mainstream press
-    * [Journal Science releases guidelines for publishing scientific studies (*NY Times*)](http://www.nytimes.com/2015/06/26/science/journal-science-releases-guidelines-for-publishing-scientific-studies.html)
-    * [Trouble at the lab (*The Economist*)](http://www.economist.com/news/briefing/21588057-scientists-think-science-self-correcting-alarming-degree-it-not-trouble)
+    * As of 2015-07-21, **200** [journal signatories](http://centerforopenscience.org/top/#journals)
+* Best practices
 
 
 ## Why? {.columns-2 .smaller}
@@ -76,7 +72,7 @@ Reward systems are changing...
 
 ## Why?
 
-[TOP Guideline's](http://centerforopenscience.org/top/) 8 standards:
+Transparency and Openness Promotion [(TOP) Guidelines'](http://centerforopenscience.org/top/) 8 standards:
 
 1. Citation standards
 2. Data transparency
@@ -100,6 +96,8 @@ Best practices
 * Break us out of bad habits
 * Track decision points
 * Minimize impact of staff turnover
+* Disaster mitigation
+* Projects become more open and transparent
 
 
 ## How?
@@ -123,6 +121,7 @@ Fully reproducible research pipeline
 * Today, we're going to focus on **R**
 * Tools for **SAS** and **Stata** are not mature 
     * Unclear if there are active development efforts to build them
+    * However, principles are the same
 
 
 ## How?
