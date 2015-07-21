@@ -100,6 +100,7 @@ Transparency and Openness Promotion [(TOP) Guidelines'](http://centerforopenscie
 Best practices
 
 * Break us out of bad habits
+* Make your code more *human-readable* (without being less machine-readable)
 * Track decision points
 * Minimize impact of staff turnover
 * Disaster mitigation
