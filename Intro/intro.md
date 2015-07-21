@@ -94,6 +94,7 @@ Transparency and Openness Promotion [(TOP) Guidelines'](http://centerforopenscie
 Best practices
 
 * Break us out of bad habits
+* Make your code more *human-readable* (without being less machine-readable)
 * Track decision points
 * Minimize impact of staff turnover
 * Disaster mitigation
@@ -146,3 +147,13 @@ Resources to get you started
 3. [Reproducible Research with R and R Studio](http://christophergandrud.github.io/RepResR-RStudio/)
 3. [Implementing Reproducible Research](https://osf.io/s9tya/wiki/home/)
 2. [CHSE](http://www.ohsu.edu/xd/research/centers-institutes/center-for-health-systems-effectiveness/)
+
+
+## Outro
+
+What a code repository looks like
+
+* Hainmueller, 2011, *Replication data for: Entropy Balancing for Causal Effects: A Multivariate Reweighting Method to Produce Balanced Samples in Observational Studies*
+    * [Paper abstract](http://pan.oxfordjournals.org/content/20/1/25.abstract)
+    * [Code](https://dataverse.harvard.edu/dataset.xhtml?persistentId=hdl:1902.1/16077)
+* [Seattle Police 911 Incident Response](https://github.com/jayfeng1/Seattle-Police-Data-Analysis)
