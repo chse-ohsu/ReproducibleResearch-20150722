@@ -3,11 +3,11 @@ title: "Reproducible Research Demo"
 author: "OHSU Center for Health Systems Effectiveness"
 date: "Wednesday, July 22, 2015"
 output:
-  word_document: default
   pdf_document:
     toc: yes
   html_document:
     toc: yes
+  word_document: default
 ---
 
 Last update by Stephanie Renfro (<renfrst@ohsu.edu>) on `r paste(Sys.time())` using `r R.version.string`.
@@ -25,7 +25,9 @@ Subject: What to feed chicks
 
 Hello,
 
-I'm receiving 20 baby chicks next month. Can you help me decide what to feed them? I'm choosing between the following four diets:
+I'm receiving 20 baby chicks next month. Can you help me decide what to feed them?
+
+I'm choosing between the following four diets:
 
 1.  Grower diet
 2.  Layer diet
@@ -42,6 +44,7 @@ Office: 3030 SW Moody | Mail Code: MDYCHSE
 www.ohsu.edu/chse
 ```
 
+\newpage
 
 ## Preliminaries
 
@@ -53,7 +56,7 @@ start_program <- proc.time()
 
 Load needed packages:
 
-  * *data.table* - for faster processing  
+  * *data.table* - for faster processing
   * *knitr* - for better table display ("kable" function)
   * *ggplot2* - for pretty plots  
   
@@ -100,7 +103,7 @@ Convert to data.table for faster processing.
 ChickWeight <- data.table(ChickWeight)
 ```
 
-Just for fun, let's create a table showing mean weight at times 0, 10, and 21 days, for each of the four diet types.
+Create a table showing mean weight at times 0, 10, and 21 days, for each of the four diet types.
 
 ```{r, results='asis'}
 mean_ChickWeight <- ChickWeight[Time %in% c(0,10,21),
@@ -124,9 +127,7 @@ The following plot illustrates the growth curve for individual chicks from 0 to 
 
 Colors represent the four diets. 
 
-**From this plot, it is difficult to distinguish between the performance of the four diets.**
-
-```{r, echo=FALSE}
+```{r}
 ggplot() +
   geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
   scale_color_manual(values=colorPalette()) +
@@ -134,13 +135,15 @@ ggplot() +
 
 ```
 
+**From this plot, it is difficult to distinguish between the performance of the four diets.**
+
 \newpage
 
 ### Individual growth curves
 
 Plot individual chick growth curves using small multiples.
 
-```{r, echo=FALSE}
+```{r}
 ggplot() +
   geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
   facet_wrap(~ dietChr, nrow=1) + 
@@ -156,7 +159,7 @@ ggplot() +
 Plot fitted growth curves using small multiples.
 Data points are jittered around time value.
 
-```{r, echo=FALSE, message=FALSE}
+```{r, message=FALSE}
 ggplot() +
   geom_jitter(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
   geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
@@ -172,7 +175,7 @@ ggplot() +
 
 Plot densities by diet for chicks' final weights (day 21) using small multiples.
 
-```{r, echo=FALSE}
+```{r}
 ggplot(ChickWeight[Time==21], aes(x=weight, colour=dietChr, fill=dietChr)) +
     geom_density() +
   facet_wrap(~ dietChr, nrow=4) + 
@@ -185,16 +188,11 @@ ggplot(ChickWeight[Time==21], aes(x=weight, colour=dietChr, fill=dietChr)) +
 
 ## Wrap Up
 
-Calculate total runtime.
+Calculate total runtime and clear memory.
 
 ```{r}
 time_program <- proc.time()-start_program
 print(paste("Total runtime:", format(time_program[3]/60,digits=3), "minutes"))
-```
-
-Clear memory.
-
-```{r}
 rm(list=ls())
 invisible(gc())
 ```
