@@ -10,8 +10,9 @@ July 22, 2015
 ## Outline {.columns-2}
 
 1. Introduction (Ben)
-2. Example and workflow (Stephanie)
+2. Walkthrough a toy example (Stephanie)
 3. Getting fancy (Thomas)
+4. Outro (Ben)
 
 ![flyer](Reproducible Research FLYER scaled.png)
 
@@ -25,24 +26,53 @@ July 22, 2015
 ![flyer](Reproducible Research FLYER scaled.png)
 
 
-## What is reproducible research?
+## What? {.columns-2}
+
+RR is **open sourcing** your project
+
+* Reproducible research is the idea that data analyses... **are published with their data and software code** so that others may verify the findings and build upon them
+* Reproducibility makes an analysis more useful to others because the data and **code that actually conducted the analysis are available**
+
+[![Peng Coursera.png](Peng Coursera.png)](https://www.coursera.org/course/repdata)
+
+
+## What? {.columns-2}
+
+One of the most effective ways to promote high-quality science is to create free open-source tools that give scientists easier and cheaper ways to incorporate transparency into their daily workflow: 
+
+* from **open** ~~lab notebooks~~ **code libraries**, 
+* to **dynamic document generation**,
+
+[![Buck citation.png](Buck citation.png)](http://www.sciencemag.org/content/348/6242/1403.full)
+
+
+## Why?
 
 It's where we're all headed...
 
-* Journal mandates
-    * [Transparency and Openness Promotion (TOP) Guidelines](http://centerforopenscience.org/top/)
-    * As of 2015-07-08, 115 [journal signatories](http://centerforopenscience.org/top/#journals)
-* Funding mandates (NIH)
+* Funding mandates
     * [Principles and Guidelines for Reporting Preclinical Research (*NIH*)](http://www.nih.gov/science/reproducibility/principles-guidelines.htm)
     * [Policy: NIH plans to enhance reproducibility (*Nature*)](http://www.nature.com/news/policy-nih-plans-to-enhance-reproducibility-1.14586)
-* Mainstream press
-    * [Journal Science releases guidelines for publishing scientific studies (*NY Times*)](http://www.nytimes.com/2015/06/26/science/journal-science-releases-guidelines-for-publishing-scientific-studies.html)
-    * [Trouble at the lab (*The Economist*)](http://www.economist.com/news/briefing/21588057-scientists-think-science-self-correcting-alarming-degree-it-not-trouble)
+* Journal mandates
+    * [Transparency and Openness Promotion (TOP) Guidelines](http://centerforopenscience.org/top/)
+    * As of 2015-07-21, **200** [journal signatories](http://centerforopenscience.org/top/#journals)
+* Best practices
 
 
-## What is reproducible research?
+## Why? {.columns-2 .smaller}
 
-[Transparency and Openness Promotion (TOP) Guideline's](http://centerforopenscience.org/top/) 8 standards:
+Reward systems are changing...
+
+* Important to **reward scientists on the basis** of good quality of research and documentation, and **reproducibility of results**, rather than statistical significance
+* Statistical shops could adopt software systems that **encourage accuracy and reproducibility of their software scripts** [e.g., *knitr*]
+* **Public availability** of raw data and **complete scripts of statistical analyses** could be required by journals and funding agencies sponsoring new research --- e.g., as the IOM recommended in a report on omics  
+
+[![Ioannidis citation scaled.png](Ioannidis citation scaled.png)](http://www.sciencedirect.com/science/article/pii/S0140673613622278)
+
+
+## Why?
+
+Transparency and Openness Promotion [(TOP) Guidelines'](http://centerforopenscience.org/top/) 8 standards:
 
 1. Citation standards
 2. Data transparency
@@ -54,44 +84,24 @@ It's where we're all headed...
 8. Replication
 
 
-## What is reproducible research? {.columns-2}
-
-* Reproducible research is the idea that data analyses... **are published with their data and software code** so that others may verify the findings and build upon them
-* Reproducibility makes an analysis more useful to others because the data and **code that actually conducted the analysis are available**
-
-RR is **open sourcing** your project
-
-[![Peng Coursera.png](Peng Coursera.png)](https://www.coursera.org/course/repdata)
-
-
-## Why reproducible research? {.columns-2}
-
-One of the most effective ways to promote high-quality science is to create free open-source tools that give scientists easier and cheaper ways to incorporate transparency into their daily workflow: 
-
-* from **open lab notebooks**, 
-* to software that tracks every version of a data set (topic for another day), 
-* to **dynamic document generation**
-
-[![Buck citation.png](Buck citation.png)](http://www.sciencemag.org/content/348/6242/1403.full)
-
-
-## Why reproducible research? {.columns-2 .smaller}
-
-Reproducibility practices and reward systems
-
-* Important to **reward scientists on the basis** of good quality of research and documentation, and **reproducibility of results**, rather than statistical significance
-* Statistical shops could adopt software systems that **encourage accuracy and reproducibility of their software scripts** [e.g., *knitr*]
-* **Public availability** of raw data and **complete scripts of statistical analyses** could be required by journals and funding agencies sponsoring new research --- e.g., as the IOM recommended in a report on omics  
-
-[![Ioannidis citation scaled.png](Ioannidis citation scaled.png)](http://www.sciencedirect.com/science/article/pii/S0140673613622278)
-
-
-## Why reproducible research?
+## Why?
 
 [![Nosek table](Science 2015 Jun 348(6242) 1422-5, partial scaled.png)](http://www.sciencemag.org/content/348/6242/1422.full)
 
 
-## How to do reproducible research?
+## Why?
+
+Best practices
+
+* Break us out of bad habits
+* Make your code more *human-readable* (without being less machine-readable)
+* Track decision points
+* Minimize impact of staff turnover
+* Disaster mitigation
+* Projects become more open and transparent
+
+
+## How?
 
 
 
@@ -100,13 +110,50 @@ Almost reproducible research pipeline
 ![pipelineAlmostReproducible.svg](pipelineAlmostReproducible.svg)
 
 
-## How to do reproducible research?
+## How?
 
 Fully reproducible research pipeline
 
 ![pipelineFullyReproducible.svg](pipelineFullyReproducible.svg)
 
 
-## How to do reproducible research?
+## How?
+
+* Today, we're going to focus on **R**
+* Tools for **SAS** and **Stata** are not mature 
+    * Unclear if there are active development efforts to build them
+    * However, principles are the same
+
+
+## How?
 
 Now, some examples...
+
+
+
+
+## Outro
+
+[Real example](MASTER.html) of a data processing pipeline.
+
+
+## Outro
+
+Resources to get you started
+
+1. Johns Hopkins [Coursera course](https://www.coursera.org/course/repdata)
+2. [R Markdown](http://rmarkdown.rstudio.com/) authoring format
+3. [Dynamic Documents with R and knitr](https://www.crcpress.com/Dynamic-Documents-with-R-and-knitr-Second-Edition/Xie/9781498716963)
+3. [Reproducible Research with R and R Studio](http://christophergandrud.github.io/RepResR-RStudio/)
+3. [Implementing Reproducible Research](https://osf.io/s9tya/wiki/home/)
+2. [CHSE](http://www.ohsu.edu/xd/research/centers-institutes/center-for-health-systems-effectiveness/)
+
+
+## Outro
+
+What a code repository looks like
+
+* Hainmueller, 2011, *Replication data for: Entropy Balancing for Causal Effects: A Multivariate Reweighting Method to Produce Balanced Samples in Observational Studies*
+    * [Paper abstract](http://pan.oxfordjournals.org/content/20/1/25.abstract)
+    * [Code](https://dataverse.harvard.edu/dataset.xhtml?persistentId=hdl:1902.1/16077)
+* [Seattle Police 911 Incident Response](https://github.com/jayfeng1/Seattle-Police-Data-Analysis)
