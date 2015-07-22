@@ -1,0 +1,235 @@
+---
+title:
+  # Title must be 150 characters or less
+  "Reproducible Research Demo: What Does This Code Do Again?"
+author:
+  - name: Ben Chan
+    affiliation: '1'
+    # If corresponding author (only one corresponding author per manuscript)
+    email: chanb@ohsu.edu
+  - name: Stephanie Renfro
+    affiliation: '1'
+  - name: Thomas Meath
+    affiliation: '1,2'
+affiliation:
+  - id: '1'
+    department: Center for Health Systems Effectiveness
+    institution: Oregon Health & Science University
+    city: Portland
+    state: Oregon
+    country: USA
+  - id: '2' 
+    department: Center to Improve Veteran Involvement in Care
+    institution: Portland VA Medical System
+    city: Portland
+    state: OR
+    country: USA
+output: rticles::plos_article
+csl: plos.csl
+bibliography: library.bib
+---
+
+# Abstract {-}
+Reproducible research is the idea that results are published along with documentation of the coding steps that produced them. This additional transparency fosters credibility and allows others to replicate the findings and build upon them - and allows you to return to past work with less head scratching! The need for reproducibility is only increasing as datasets grow larger and data analyses become more complex.
+
+# Author summary {-}
+The authors are all Research Associates at OHSU's Center for Health Systems Effectiveness
+
+# Introduction {-}
+
+This work was inspired by the following email from Farmer Ben.
+
+> From: Ben Chan  
+> Sent: Thursday, June 11, 2015 4:04 PM  
+> To: Stephanie Renfro  
+> Subject: What to feed chicks  
+> 
+> Hello,  
+> 
+> I'm receiving 20 baby chicks next month. Can you help me decide what to feed them? I'm choosing between the following four diets:  
+> 
+> 1.  Grower diet  
+> 2.  Layer diet
+> 3.  Breeder diet
+> 4.  High cluckage diet  
+> 
+> Thanks,
+> Ben
+> 
+> -----------------------------------------------------------------
+> Ben Chan, Farmer and Research Associate  
+> OHSU Center for Health Systems Effectiveness  
+> Office: 3030 SW Moody | Mail Code: MDYCHSE  
+> www.ohsu.edu/chse  
+
+# Results {-}
+Results and Discussion can be combined.
+
+## Preliminaries {-}
+
+Start clock to calculate total runtime.
+
+```{r}
+start_program <- proc.time()
+```
+
+Load needed packages:
+
+  * *data.table* - for faster processing  
+  * *knitr* - for better tables ("kable" function)
+  * *ggplot2* - for pretty plots  
+  * *knitr* - for better table display    
+  
+```{r, warning=FALSE}
+packages <- c("data.table", "ggplot2", "knitr")
+sapply(packages, require, character.only=TRUE, quietly=TRUE)
+```
+
+Define the CHSE color palette function.
+
+```{r}
+colorPalette <- function () {
+  c(rgb(  1,  67, 134, maxColorValue=255),
+    rgb(119, 120, 123, maxColorValue=255),
+    rgb(139, 184, 234, maxColorValue=255),
+    rgb(188, 190, 192, maxColorValue=255),
+    rgb( 94, 122, 162, maxColorValue=255),
+    rgb(223, 122,  28, maxColorValue=255))
+}
+```
+
+## Prepare Data {-}
+This demo uses [data from an experiment on the effect of diet on early growth of chicks](http://www.inside-r.org/r-doc/datasets/ChickWeight), `ChickWeight`, which comes pre-loaded in any R session.
+
+Let's take a look at the first few rows:
+
+```{r}
+head(ChickWeight)
+```
+
+Let's also print a summary of the data.
+
+*Note, by specifying the option "echo = FALSE", the resulting output will display, but not the code that generated it.*
+
+```{r, echo=FALSE}
+summary(ChickWeight)
+```
+
+Convert to data.table for faster processing.
+
+```{r}
+ChickWeight <- data.table(ChickWeight)
+```
+
+Just for fun, let's create a table showing mean weight at times 0, 10, and 21 days, for each of the four diet types.
+
+```{r, results='asis'}
+mean_ChickWeight <- ChickWeight[Time %in% c(0,10,21),
+                                list(mean_weight = round(mean(weight), digits=1)),
+                                by = list(Diet,Time)]
+
+#kable(mean_ChickWeight)
+```
+
+Create a character variable for `diet`.
+Use this variable for plotting small multiples.
+
+```{r}
+ChickWeight[, dietChr := sprintf("Diet %d", Diet)]
+```
+
+## Growth for Individual Chicks {-}
+
+The following plot illustrates the growth curve for individual chicks from 0 to 21 days.
+
+Colors represent the four diets. 
+
+**From this plot, it is difficult to distinguish between the performance of the four diets.**
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
+  scale_color_manual(values=colorPalette()) +
+  ggtitle("Growth Curve for Individual Chicks")
+
+```
+
+**Individual growth curves**
+
+Plot individual chick growth curves using small multiples.
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_line(data=ChickWeight, aes(x=Time, y=weight, color=dietChr, group=Chick)) +
+  facet_wrap(~ dietChr, nrow=1) + 
+  scale_color_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Growth Curve for Individual Chicks")))
+```
+
+**Fitted growth curves**
+
+Plot fitted growth curves using small multiples.
+Data points are jittered around time value.
+
+```{r, echo=FALSE, message=FALSE}
+ggplot() +
+  geom_jitter(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
+  geom_smooth(data=ChickWeight, aes(x=Time, y=weight, colour=dietChr)) +
+  facet_wrap(~ dietChr, nrow=1) + 
+  scale_color_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Fitted Growth Curves")))
+```
+
+**Final weight density**
+
+Plot densities by diet for chicks' final weights (day 21) using small multiples.
+
+```{r, echo=FALSE}
+ggplot(ChickWeight[Time==21], aes(x=weight, colour=dietChr, fill=dietChr)) +
+    geom_density() +
+  facet_wrap(~ dietChr, nrow=4) + 
+  scale_color_manual(values=colorPalette()) +
+  scale_fill_manual(values=colorPalette()) +
+  theme(legend.position="none") +
+  ggtitle(bquote(atop("Density: Final Weight")))
+```
+
+## Wrap Up {-}
+
+Calculate total runtime.
+
+```{r}
+time_program <- proc.time()-start_program
+print(paste("Total runtime:", format(time_program[3]/60,digits=3), "minutes"))
+```
+
+Clear memory.
+
+```{r}
+rm(list=ls())
+invisible(gc())
+```
+
+# Discussion {-}
+If this was a real paper, we would have some discussion about our results. Because this is an example, we do not.
+
+# Methods {-}
+This section is also not currently written out in full.  This is where your methods would go to satisfy PLOS.
+
+# Acknowledgments {-}
+Rojo the Llama: for being a very friendly llama.
+
+# References {-}
+A reference list should be automatically created here. However it won't. Pandoc 
+will place the list of references at the end of the document instead. There are 
+no convenient solution for now to force Pandoc to do otherwise. The easiest way 
+to get around this problem is to edit the LaTeX file created by Pandoc before 
+compiling it again using the traditional LaTeX commands.
+
+# Figure Legends {-}
+Figure Legends would go in here
+
+# Tables {-}
+Tables would go here:
