@@ -2,9 +2,12 @@
 title: "Reproducible Research Demo"
 author: "OHSU Center for Health Systems Effectiveness"
 date: "Wednesday, July 22, 2015"
-output: 
+output:
+  word_document: default
+  pdf_document:
+    toc: yes
   html_document:
-    toc: TRUE
+    toc: yes
 ---
 
 Last update by Stephanie Renfro (<renfrst@ohsu.edu>) on `r paste(Sys.time())` using `r R.version.string`.
@@ -51,12 +54,11 @@ start_program <- proc.time()
 Load needed packages:
 
   * *data.table* - for faster processing  
-  * *knitr* - for better tables ("kable" function)
+  * *knitr* - for better table display ("kable" function)
   * *ggplot2* - for pretty plots  
-  * *knitr* - for better table display    
   
 ```{r, warning=FALSE}
-packages <- c("data.table", "ggplot2", "knitr")
+packages <- c("data.table", "knitr", "ggplot2")
 sapply(packages, require, character.only=TRUE, quietly=TRUE)
 ```
 
@@ -132,6 +134,8 @@ ggplot() +
 
 ```
 
+\newpage
+
 ### Individual growth curves
 
 Plot individual chick growth curves using small multiples.
@@ -144,6 +148,8 @@ ggplot() +
   theme(legend.position="none") +
   ggtitle(bquote(atop("Growth Curve for Individual Chicks")))
 ```
+
+\newpage
 
 ### Fitted growth curves
 
@@ -160,6 +166,7 @@ ggplot() +
   ggtitle(bquote(atop("Fitted Growth Curves")))
 ```
 
+\newpage
 
 ### Final weight density
 
